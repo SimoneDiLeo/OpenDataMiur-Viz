@@ -21,3 +21,9 @@ I dati iniziali disponibili sul sito del MIUR (http://dati.ustat.miur.it/dataset
 ## Contenuto in breve del progetto
 Dopo il calcolo della media degli iscritti per ogni ateneo viene calcolato il numero K ottimo di cluster da usare nell'analisi KMeans.
 L'analisi K means permetterà di ottenere una divisione dimensionale degli atenei.
+
+
+
+## Sito dove vengono presentati i risultati
+
+https://simonedileo.github.io/OpenDataMiur-Viz/
