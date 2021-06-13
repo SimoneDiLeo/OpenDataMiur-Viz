@@ -1,11 +1,13 @@
 library(tidyverse)
 library(factoextra)
-library(factoextra)
 library(NbClust)
-library(readxl)
 library(plotly)
 library(RColorBrewer)
 library(ggplot2)
+library(fpc)
+library(dbscan)
+library(caret)
+
 
 IscrittiAteneiItaliani<-read.csv2("http://dati.ustat.miur.it/dataset/3dd9ca7f-9cc9-4a1a-915c-e569b181dbd5/resource/32d26e28-a0b5-45f3-9152-6072164f3e63/download/iscrittixateneo.csv")
 
@@ -78,4 +80,47 @@ fig<-ggplot(DatiPerGrafico) +
 
 
 ggplotly(fig)%>% config(displayModeBar = F)
+
+#DBSCANE Clusterization
+
+
+
+NormIscritti<-as.data.frame(scale(MediaIscritti))
+
+#DBScane k choice
+dbscan::kNNdistplot(MediaIscritti, k =  4)
+abline(h = 1500, lty = 2)
+
+
+DBScanData <- fpc::dbscan(MediaIscritti, eps = 1500, MinPts = 4)
+DBScanData$cluster
+MediaIscrittiMatriceNorm<-MediaIscritti
+colnames(MediaIscrittiMatriceNorm)[1] <- "Data"
+MediaIscrittiMatriceNorm$clusterDBScan<-DBScanData$cluster
+
+
+
+desc2=c("Mega Ateneo","Piccolissimo Ateneo","Piccolo Ateneo","Medio Ateneo","Grande Ateneo")
+IdCluster2=c(0,1,2,3,4)
+DBscanDesc<-data.frame(desc2)
+DBscanDesc$cluster<-IdCluster2
+
+MediaIscrittiMatriceNorm<-merge(MediaIscrittiMatriceNorm, DBscanDesc, by.x = "clusterDBScan",by.y = "cluster")
+#DBSCAN plot
+
+
+plotDB<-ggplot(MediaIscrittiMatriceNorm) +
+ aes(x = Data, y = clusterDBScan, colour = desc2, size = Data) +
+ geom_point(shape = "diamond") +
+ scale_color_hue(direction = 1) +
+ labs(x = "Numero Iscritti", y = "Cluster", title = "Risultati cluster DB Scan", 
+ color = "Dimensione ateneo", size = "") +
+ theme_light() +
+ theme(plot.title = element_text(size = 16L, 
+ face = "bold", hjust = 0.5))
+
+
+ggplotly(plotDB)%>% config(displayModeBar = F)
+
+
 
