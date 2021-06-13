@@ -1,0 +1,317 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Data Visualization con R e Rmarkdown degli OpenData del MIUR sulle universita Italiane</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" />
+  <!-- https://fonts.google.com/specimen/Open+Sans -->
+  <link rel="stylesheet" href="css/all.min.css" />
+  <!-- https://fontawesome.com/ -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <!-- https://getbootstrap.com/ -->
+  <link rel="stylesheet" href="css/tooplate-style.css" />
+
+</head>
+<style>
+  .iconTop {
+    content: url('img/Logo.png');
+    height: 80px;
+    width: 80px;
+    float:left;
+
+    /* Other styles here */
+  }
+
+  .text1 {
+    font-weight: bold;
+    font-size: 50px ;
+    text-align: center;
+    /* Other styles here */
+  }
+
+</style>
+<body>
+  <!-- page header -->
+   <!-- page header -->
+   <span style="display:block; height: 30px;"></span>
+   <div class="container" id="home">
+ 
+     <i class='iconTop'></i>
+         <h1 class="text1"> Open Data Miur Visualization </h1>
+ 
+   </div>
+  <!-- navbar -->
+  <div class="tm-nav-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav class="navbar navbar-expand-md navbar-light">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#tmMainNav"
+              aria-controls="tmMainNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="tmMainNav">
+              <ul class="navbar-nav mx-auto tm-navbar-nav">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#home">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#datiUsati">Dati Usati</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#AnalisiPreliminare">Analisi Preliminare</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#Dashboard">Data Visualization</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#DashboardDbScan">Analisi Db Scan</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Video Banner -->
+  <section class="tm-banner-section" id="tmVideoSection">
+    <div class="container tm-banner-text-container">
+      <div class="row">
+        <div class="col-12">
+          <header>
+            <p class="mx-auto tm-banner-subtitle">
+              Un esempio di data Viz, Unsupervised Learning e Interactive Data Presentation.
+            </p>
+          </header>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video -->
+    <video id="hero-vid" autoplay="" loop="" muted>
+      <source src="videos/city-night-blur-01.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </section>
+  <!-- Features -->
+  <div class="container tm-features-section">
+    <div class="row tm-features-row">
+      <section class="col-md-6 col-sm-12 tm-feature-block">
+        <header class="tm-feature-header">
+          <h3 class="tm-feature-h" style="text-align:center">Introduzione</h3>
+        </header>
+        <p>
+          Questo progetto permette di analizzare e visualizzare i dati relativi alle università italiane (Open Data
+          MIUR).
+        </p>
+        <p>
+          Il progetto usa R ed è riproducibile facilmente, essendo i dati e tutte le risorse disponibili online.
+        </p>
+
+      </section>
+      <section class="col-md-6 col-sm-12 tm-feature-block">
+        <header class="tm-feature-header">
+          <h3 class="tm-feature-h" style="text-align:center">Pachetti R Richiesti</h3>
+        </header>
+        <p>
+          Per l’esecuzione sono richiesti i seguenti pacchetti R: </p>
+        <ul>
+          <li>tidyverse </li>
+          <li>factoextra </li>
+          <li>NbClust</li>
+          <li>RColorBrewer</li>
+          <li>ggplot2</li>
+          <li>plotly</li>
+          <li>fpc</li>
+          <li>dbscan</li>
+          <li>caret</li>
+        </ul>
+
+      </section>
+    </div>
+  </div>
+
+  <!-- Dati Usati -->
+  <div class="container" id="datiUsati">
+    <h3 class="tm-text-blue" style="text-align:center">Informazioni sui dati usati</h3>
+    <p></p>
+    <p>I dati iniziali disponibili sul sito del
+    <a rel="nofollow" href="http://dati.ustat.miur.it/dataset/iscritti/resource/32d26e28-a0b5-45f3-9152-6072164f3e63"
+      class="tm-footer-link">MIUR</a>
+    riguardano il numero di iscritti divisi per genere, anno e ateneo Italiano per il periodo 2010-2020.</p>
+    <p></p>
+  </div>
+  </div>
+
+  <!-- Analisi Preliminare -->
+  <div class="container" id="AnalisiPreliminare">
+
+    <h3 class="tm-text-blue" style="text-align:center">Analisi Preliminare</h3>
+    <p></p>
+    <p>Dopo il calcolo della media degli iscritti per ogni ateneo viene calcolato il numero K ottimo di cluster da usare
+    nell’analisi KMeans. L’analisi K means permetterà di ottenere una divisione dimensionale degli atenei.</p>
+
+    <p>Dall’analisi di Elbow, il numero K ottimo è 4. Di seguito viene riportato il grafico dell’analisi.</p>
+    <p></p>
+  </div>
+  <script src="js/jquery-1.9.1.min.js"></script>
+  <!-- Single Page Nav plugin works with this version of jQuery -->
+  <script src="js/jquery.singlePageNav.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script>
+    /**
+     * detect IE
+     * returns version of IE or false, if browser is not Internet Explorer
+     */
+    function detectIE() {
+      var ua = window.navigator.userAgent;
+
+      var msie = ua.indexOf("MSIE ");
+      if (msie > 0) {
+        // IE 10 or older => return version number
+        return parseInt(ua.substring(msie + 5, ua.indexOf(".", msie)), 10);
+      }
+
+      var trident = ua.indexOf("Trident/");
+      if (trident > 0) {
+        // IE 11 => return version number
+        var rv = ua.indexOf("rv:");
+        return parseInt(ua.substring(rv + 3, ua.indexOf(".", rv)), 10);
+      }
+
+      // var edge = ua.indexOf('Edge/');
+      // if (edge > 0) {
+      //     // Edge (IE 12+) => return version number
+      //     return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
+      // }
+
+      // other browser
+      return false;
+    }
+
+    function setVideoHeight() {
+      const videoRatio = 1920 / 1080;
+      const minVideoWidth = 400 * videoRatio;
+      let secWidth = 0,
+        secHeight = 0;
+
+      secWidth = videoSec.width();
+      secHeight = videoSec.height();
+
+      secHeight = secWidth / 2.13;
+
+      if (secHeight > 600) {
+        secHeight = 600;
+      } else if (secHeight < 400) {
+        secHeight = 400;
+      }
+
+      if (secWidth > minVideoWidth) {
+        $("video").width(secWidth);
+      } else {
+        $("video").width(minVideoWidth);
+      }
+
+      videoSec.height(secHeight);
+    }
+
+    // Parallax function
+ 
+    var background_image_parallax = function ($object, multiplier) {
+      multiplier = typeof multiplier !== "undefined" ? multiplier : 0.5;
+      multiplier = 1 - multiplier;
+      var $doc = $(document);
+      $object.css({ "background-attatchment": "fixed" });
+      $(window).scroll(function () {
+        var from_top = $doc.scrollTop(),
+          bg_css = "center " + multiplier * from_top + "px";
+        $object.css({ "background-position": bg_css });
+      });
+    };
+
+    $(window).scroll(function () {
+      if ($(this).scrollTop() > 50) {
+        $(".scrolltop:hidden")
+          .stop(true, true)
+          .fadeIn();
+      } else {
+        $(".scrolltop")
+          .stop(true, true)
+          .fadeOut();
+      }
+
+      // Make sticky header
+      if ($(this).scrollTop() > 158) {
+        $(".tm-nav-section").addClass("sticky");
+      } else {
+        $(".tm-nav-section").removeClass("sticky");
+      }
+    });
+
+    let videoSec;
+
+    $(function () {
+      if (detectIE()) {
+        alert(
+          "Please use the latest version of Edge, Chrome, or Firefox for best browsing experience."
+        );
+      }
+
+      const mainNav = $("#tmMainNav");
+      mainNav.singlePageNav({
+        filter: ":not(.external)",
+        offset: $(".tm-nav-section").outerHeight(),
+        updateHash: true,
+        beforeStart: function () {
+          mainNav.removeClass("show");
+        }
+      });
+
+      videoSec = $("#tmVideoSection");
+
+      // Adjust height of video when window is resized
+      $(window).resize(function () {
+        setVideoHeight();
+      });
+
+      setVideoHeight();
+
+      $(window).on("load scroll resize", function () {
+        var scrolled = $(this).scrollTop();
+        var vidHeight = $("#hero-vid").height();
+        var offset = vidHeight * 0.6;
+        var scrollSpeed = 0.25;
+        var windowWidth = window.innerWidth;
+
+        if (windowWidth < 768) {
+          scrollSpeed = 0.1;
+          offset = vidHeight * 0.5;
+        }
+
+        $("#hero-vid").css(
+          "transform",
+          "translate3d(-50%, " + -(offset + scrolled * scrollSpeed) + "px, 0)"
+        ); // parallax (25% scroll rate)
+      });
+
+      // Parallax image background
+      background_image_parallax($(".tm-parallax"), 0.4);
+
+      // Back to top
+      $(".scroll").click(function () {
+        $("html,body").animate(
+          { scrollTop: $("#home").offset().top },
+          "1000"
+        );
+        return false;
+      });
+    });
+  </script>
+</body>
+
+</html>

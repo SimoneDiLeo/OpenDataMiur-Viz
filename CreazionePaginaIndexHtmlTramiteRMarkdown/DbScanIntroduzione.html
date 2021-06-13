@@ -1,0 +1,31 @@
+<head>
+  <meta charset="UTF-8" />
+</head>
+<html>
+<!-- Dashboard -->
+<div class="container" id="DashboardDbScan">
+
+  <h3 class="tm-text-blue" style="text-align:center">DB Scan Cluster</h3>
+  <p></p>
+  <p>Al termine delle analisi di kmeans si è proceduto ad effettuare una clusterizzazione usando l'algoritmo DBScan.</p>
+
+  <p>Il DBSCAN (Density-Based Spatial Clustering of Applications with Noise) è un metodo di clustering proposto nel 1996
+    da Martin Ester, Hans-Peter Kriegel, Jörg Sander and Xiaowei Xu.
+    È basato sulla densità perché connette regioni di punti con densità sufficientemente alta.
+    DBSCAN è l'algoritmo più comunemente usato ed è anche il più citato nella letteratura scientifica.</p>
+  <p>DBSCAN necessita di due parametri: eps e del numero minimo di punti
+    richiesti per formare un cluster (minPts). Si comincia con un punto casuale che non è stato ancora visitato. Viene
+    calcolato il suo eps e se contiene un numero sufficiente di punti viene
+    creato un nuovo cluster. Se ciò non avviene il punto viene etichettato come rumore e successivamente potrebbe essere
+    ritrovato in un eps sufficientemente grande riconducibile ad un punto
+    differente entrando a far parte di un cluster.</p>
+
+  <p>Se un punto è associato ad un cluster anche i punti del suo eps sono parte del cluster. Conseguentemente tutti i
+    punti trovati all'interno del suo eps sono aggiunti al cluster, così come i loro eps. Questo processo continua fino
+    a quando il cluster viene completato. Il processo continua fino a quando non sono stati visitati tutti i punti.</p>
+
+    <p>L'analisi è stata eseguita a seguito di una preliminare analisi KNN per determinare eps. I valori usati per l'analisi sono eps=1500 e MinPts=4</p>
+  <p></p>
+</div>
+
+</html>
