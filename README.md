@@ -6,12 +6,13 @@ Il progetto usa R ed è riproducibile facilmente, essendo i dati e tutte le riso
 Per l'esecuzione sono richiesti i seguenti pacchetti R:
 - tidyverse
 - factoextra
-- factoextra
 - NbClust
-- readxl
-- plotly
 - RColorBrewer
 - ggplot2
+- plotly
+- fpc
+- dbscan
+- caret
 
 
 ## Informazioni sui dati usati
